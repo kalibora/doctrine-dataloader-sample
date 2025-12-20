@@ -1,6 +1,8 @@
 # doctrine-dataloader-sample
 
-Implementing the GraphQL‑Inspired DataLoader Pattern in Doctrine ORM
+Doctrine ORM with a GraphQL-Inspired DataLoader Pattern
+
+See: https://zenn.dev/kalibora/articles/e066d48406bec2
 
 ## Usage
 
