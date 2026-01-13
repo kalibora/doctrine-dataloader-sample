@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
 
     private function loadProducts(ObjectManager $manager): void
     {
-        // 日本で実際に流通している銘柄をざっくり100件用意（価格は概算のテスト用）
+        // Roughly 100 brands commonly available in Japan (prices are rough test estimates).
         $data = [
             // BEER / RTD
             [AlcoholType::BEER, 'アサヒ スーパードライ', 280],
@@ -64,14 +64,14 @@ class AppFixtures extends Fixture
             [AlcoholType::BEER, '宝 焼酎ハイボール ドライ', 180],
             [AlcoholType::BEER, '極上レモンサワー 丸おろしレモン', 180],
 
-            // WINE（国産を中心に）
+            // WINE (mostly domestic)
             [AlcoholType::WINE, 'シャトー・メルシャン 桔梗ヶ原メルロー', 4500],
             [AlcoholType::WINE, 'シャトー・メルシャン 椀子シラー', 4000],
             [AlcoholType::WINE, 'グレイス甲州', 2500],
             [AlcoholType::WINE, '登美の丘 赤', 6000],
             [AlcoholType::WINE, 'おたる ナイアガラ 白', 1800],
 
-            // SAKE（日本酒）
+            // SAKE (Japanese sake)
             [AlcoholType::SAKE, '獺祭 純米大吟醸45', 3500],
             [AlcoholType::SAKE, '獺祭 純米大吟醸23', 9000],
             [AlcoholType::SAKE, '久保田 万寿', 8500],
@@ -125,7 +125,7 @@ class AppFixtures extends Fixture
             [AlcoholType::WHISKY, 'サントリー TOKI', 3200],
             [AlcoholType::WHISKY, '嘉之助 シングルモルト', 7200],
 
-            // SHOCHU / UMESHU (type: SAKE for分類簡略化)
+            // SHOCHU / UMESHU (typed as SAKE for simplified classification)
             [AlcoholType::SAKE, '黒霧島', 900],
             [AlcoholType::SAKE, '赤霧島', 1100],
             [AlcoholType::SAKE, '魔王', 3500],
@@ -166,15 +166,15 @@ class AppFixtures extends Fixture
     private function loadOrders(ObjectManager $manager): void
     {
         $orders = [
-            // ビール党
+            // Beer lover
             ['2025-12-01 12:00:00', AlcoholType::BEER, 400],
-            // ワイン好き
+            // Wine lover
             ['2025-12-02 13:30:00', AlcoholType::WINE, 300],
-            // ウイスキー好き
+            // Whisky lover
             ['2025-12-03 18:45:00', AlcoholType::WHISKY, 500],
-            // 日本酒好き（焼酎・梅酒含む）
+            // Sake lover (includes shochu and umeshu)
             ['2025-12-04 20:15:00', AlcoholType::SAKE, 500],
-            // なんでも好きな大酒飲み
+            // Heavy drinker who likes everything
             ['2025-12-05 19:00:00', null, 900],
         ];
 
@@ -201,8 +201,9 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * テーマに応じて明細を生成（70%メインカテゴリ、30%その他）。重複明細も許容し、量の多い注文を再現。
-     * ランダムを使わずインデックス計算で決定するので、毎回同じ結果になります。
+     * Generate line items by theme (70% primary category, 30% others). Duplicates are allowed to
+     * simulate larger orders. Deterministic index math is used instead of randomness, so results
+     * are the same every run.
      *
      * @param list<string> $primaryPool
      * @param list<string> $secondaryPool
@@ -214,7 +215,7 @@ class AppFixtures extends Fixture
         int $lines,
     ): void {
         if (empty($primaryPool)) {
-            // 念のため、メインカテゴリが空なら全商品から選ぶ
+            // Just in case the primary category is empty, pick from all products.
             $primaryPool = $secondaryPool;
         }
 
@@ -222,12 +223,12 @@ class AppFixtures extends Fixture
         $secondaryCount = \count($secondaryPool);
 
         for ($i = 0; $i < $lines; ++$i) {
-            $usePrimary = ($i % 10) < 7; // 70% をメインカテゴリに固定
+            $usePrimary = ($i % 10) < 7; // Fix 70% to the primary category.
             $productName = $usePrimary
                 ? $primaryPool[$i % $primaryCount]
                 : $secondaryPool[$i % $secondaryCount];
 
-            // 数量も決定的に：1〜12 を繰り返し
+            // Quantity is deterministic: repeat 1-12.
             $quantity = ($i % 12) + 1;
 
             /** @var Product $product */

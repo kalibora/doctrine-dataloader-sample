@@ -22,11 +22,11 @@ class LineItemRepository extends ServiceEntityRepository
     }
 
     /**
-     * 引数に指定されたorderIdごとに、小計が最大のLineItemをそれぞれ1件ずつ取得する
+     * For each given orderId, fetch one LineItem with the highest subtotal.
      *
      * @param list<int> $orderIds
      *
-     * @return array<int, LineItem> キーがorderId、値がLineItemの連想配列
+     * @return array<int, LineItem> Associative array keyed by orderId with LineItem values.
      */
     public function findHighestSubtotalLineItemMap(array $orderIds): array
     {
@@ -34,7 +34,7 @@ class LineItemRepository extends ServiceEntityRepository
             return [];
         }
 
-        // CTE + ウィンドウ関数で top1 を決定し、そのまま LineItem / Order / Product を1クエリで取得
+        // Use a CTE + window function to pick top1, then fetch LineItem / Order / Product in one query.
         $em = $this->getEntityManager();
 
         $rsm = new ResultSetMappingBuilder($em);
@@ -59,7 +59,7 @@ class LineItemRepository extends ServiceEntityRepository
         );
 
         $orderJoinColumnName = $em->getClassMetadata(LineItem::class)->getSingleAssociationJoinColumnName('order');
-        $rsm->addIndexBy('li', $orderJoinColumnName); // 戻り値は orderId をキーにする
+        $rsm->addIndexBy('li', $orderJoinColumnName); // Use orderId as the key of the result.
 
         $select = $rsm->generateSelectClause();
 
@@ -88,11 +88,11 @@ SQL;
     }
 
     /**
-     * 引数に指定されたorderIdごとに、指定されたアルコール種別のLineItemをすべて取得する
+     * For each given orderId, fetch all LineItems of the specified alcohol type.
      *
      * @param list<int> $orderIds
      *
-     * @return array<int, list<LineItem>> キーがorderId、値がLineItemの配列の連想配列
+     * @return array<int, list<LineItem>> Associative array keyed by orderId with LineItem list values.
      */
     public function findLineItemsByAlcoholType(AlcoholType $alcoholType, array $orderIds): array
     {

@@ -3,19 +3,19 @@
 namespace App\Service\DataLoader;
 
 /**
- * 情報を一括で取得する際の引数のインターフェース
+ * Interface for args used in batch-loading data.
  */
 interface ArgsInterface
 {
     /**
-     * 引数の配列からインスタンスを生成する
+     * Create an instance from an args array.
      *
      * @param list<mixed> $args
      */
     public static function fromArray(array $args): self;
 
     /**
-     * 引数に応じたキャッシュキーを生成する
+     * Generate a cache key for these args.
      */
     public function toCacheKey(): string;
 }

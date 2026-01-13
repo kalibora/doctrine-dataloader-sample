@@ -5,7 +5,7 @@ namespace App\Service\DataLoader;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 /**
- * 情報を一括で取得するためのローダーインターフェース
+ * Loader interface for batch-fetching data.
  *
  * @template TA of ArgsInterface = ArgsInterface
  * @template TR of mixed = mixed
@@ -14,14 +14,14 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 interface LoaderInterface
 {
     /**
-     * サポートしているエンティティクラスを返す
+     * Return the supported entity class.
      *
      * @return class-string
      */
     public static function getSupportedEntity(): string;
 
     /**
-     * 引数オブジェクトを生成して返す
+     * Create and return the args object.
      *
      * @param list<mixed> $rawArgs
      *
@@ -30,12 +30,12 @@ interface LoaderInterface
     public function createArgs(array $rawArgs): ArgsInterface;
 
     /**
-     * 指定したID群に対応する情報を一括で取得して返す
+     * Batch-load data for the specified IDs.
      *
      * @param list<int> $ids
      * @param TA        $args
      *
-     * @return array<int, TR> id をキーとした取得結果のマップ
+     * @return array<int, TR> Map of results keyed by id.
      */
     public function load(array $ids, ArgsInterface $args): array;
 }

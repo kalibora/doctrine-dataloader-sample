@@ -15,31 +15,31 @@ composer install
 ./bin/console doctrine:fixtures:load
 ```
 
-### 全明細を取得
+### Fetch all line items
 
 ```
 ./bin/console app:order:list:all # This triggers an N+1 query pattern.
 ./bin/console app:order:list:all --eager
 ```
 
-### 小計の一番高い明細のみを取得
+### Fetch only the highest-subtotal line item
 
-#### Criteria を用いるケース
+#### Using Criteria
 
 ```
 ./bin/console app:order:list:subtotal-criteria # This triggers an N+1 query pattern.
 ./bin/console app:order:list:subtotal-criteria --eager
 ```
 
-#### DataLoader Resolver を用いるケース
+#### Using DataLoader Resolver
 
 ```
 ./bin/console app:order:list:subtotal-resolver
 ```
 
-### Whiskyを含む明細のみを取得
+### Fetch only line items that include whisky
 
-これは DataLoader Resolver を用いるケースのみ用意
+Only the DataLoader Resolver case is provided for this.
 
 ```
 ./bin/console app:order:list:whisky

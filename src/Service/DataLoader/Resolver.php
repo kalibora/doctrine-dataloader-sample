@@ -8,9 +8,9 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
- * エンティティの情報を一括で取得し、それを解決するサービス
+ * Service that batch-loads entity data and resolves it.
  *
- * GraphQL の DataLoader 的な役割を果たすことを想定している
+ * Intended to play a GraphQL DataLoader-like role.
  */
 final class Resolver implements ResetInterface
 {
@@ -43,9 +43,9 @@ final class Resolver implements ResetInterface
     }
 
     /**
-     * 情報を一括取得する対象のエンティティとIDを追加する
+     * Add the entity and ID to be batch-loaded.
      *
-     * @param class-string $entity エンティティのクラス名
+     * @param class-string $entity Entity class name.
      */
     public function addId(string $entity, int $id): void
     {
@@ -53,7 +53,7 @@ final class Resolver implements ResetInterface
     }
 
     /**
-     * 対象のIDとキャッシュをクリアする
+     * Clear target IDs and cache.
      */
     public function clear(): void
     {
@@ -70,7 +70,7 @@ final class Resolver implements ResetInterface
     }
 
     /**
-     * Loaderのクラス名、ID、引数を指定してキャッシュまたはDBから一括取得したデータを元に値を解決して返す
+     * Resolve a value by loader class, ID, and args using data batch-loaded from cache or DB.
      *
      * @param class-string<LoaderInterface> $loaderClass
      * @param list<mixed>                   $rawArgs
@@ -91,7 +91,7 @@ final class Resolver implements ResetInterface
             if (count($unloadedIds) > 0) {
                 $loadedValues = $loader->load($unloadedIds, $args);
 
-                // 返却されなかったIDも null でキャッシュしておくことで再度のロードを防ぐ
+                // Cache missing IDs as null to prevent repeated loads.
                 $missingIds = array_diff($unloadedIds, array_keys($loadedValues));
 
                 foreach ($missingIds as $missingId) {
