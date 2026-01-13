@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 #[AsCommand(
     name: 'app:order:list:whisky',
-    description: 'Whiskyの明細のみの注文の一覧を表示する',
+    description: 'Show a list of orders with only whisky line items.',
 )]
 final class OrderListWhiskyCommand extends AbstractOrderListCommand
 {

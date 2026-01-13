@@ -39,8 +39,8 @@ abstract class AbstractOrderListCommand extends Command
 
     protected function configure(): void
     {
-        $this->addOption('show-orders', null, InputOption::VALUE_NONE, '注文情報を表示する');
-        $this->addOption('show-sql', null, InputOption::VALUE_NONE, 'SQLログを表示する');
+        $this->addOption('show-orders', null, InputOption::VALUE_NONE, 'Show order details.');
+        $this->addOption('show-sql', null, InputOption::VALUE_NONE, 'Show SQL logs.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

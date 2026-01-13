@@ -32,7 +32,7 @@ class LineItem
     private int $unitPrice;
 
     /**
-     * 導出項目だが、インデックスを張るために保存する
+     * Derived field stored to enable indexing.
      */
     #[ORM\Column]
     private int $subTotal;

@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 #[AsCommand(
     name: 'app:order:list:all',
-    description: '全明細を含む注文の一覧を表示する',
+    description: 'Show a list of orders including all line items.',
 )]
 final class OrderListAllCommand extends AbstractOrderListCommand
 {
@@ -17,7 +17,7 @@ final class OrderListAllCommand extends AbstractOrderListCommand
     {
         parent::configure();
 
-        $this->addOption('eager', null, InputOption::VALUE_NONE, 'LineItem, Product を Eager Loading で取得する');
+        $this->addOption('eager', null, InputOption::VALUE_NONE, 'Fetch LineItem and Product with eager loading.');
     }
 
     protected function isShowTotal(): bool

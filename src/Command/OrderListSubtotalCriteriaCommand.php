@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 #[AsCommand(
     name: 'app:order:list:subtotal-criteria',
-    description: 'Criteriaを用いて小計が一番高い明細のみの注文の一覧を表示する',
+    description: 'Show a list of orders with only the highest-subtotal line item using Criteria.',
 )]
 final class OrderListSubtotalCriteriaCommand extends AbstractOrderListCommand
 {
@@ -17,7 +17,7 @@ final class OrderListSubtotalCriteriaCommand extends AbstractOrderListCommand
     {
         parent::configure();
 
-        $this->addOption('eager', null, InputOption::VALUE_NONE, 'LineItem, Product を Eager Loading で取得する');
+        $this->addOption('eager', null, InputOption::VALUE_NONE, 'Fetch LineItem and Product with eager loading.');
     }
 
     protected function isShowTotal(): bool

@@ -6,7 +6,7 @@ use App\Service\DataLoader\ArgsInterface;
 use App\Service\DataLoader\LoaderInterface;
 
 /**
- * LoaderInterface、引数、エンティティのIDごとのキャッシュ
+ * Cache by LoaderInterface, args, and entity ID.
  */
 final class Cache
 {

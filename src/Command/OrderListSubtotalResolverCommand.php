@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 #[AsCommand(
     name: 'app:order:list:subtotal-resolver',
-    description: 'Resolverを用いて小計が一番高い明細のみの注文の一覧を表示する',
+    description: 'Show a list of orders with only the highest-subtotal line item using the Resolver.',
 )]
 final class OrderListSubtotalResolverCommand extends AbstractOrderListCommand
 {

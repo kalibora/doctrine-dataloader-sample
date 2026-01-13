@@ -72,14 +72,14 @@ class Order
     }
 
     /**
-     * Criteria を用いて subtotal が最大のLineItemを返す
+     * Return the LineItem with the highest subtotal using Criteria.
      */
     public function getHighestSubtotalLineItemUsingCriteria(): ?LineItem
     {
         $criteria = Criteria::create(true)
             ->orderBy([
                 'subTotal' => Criteria::DESC,
-                'id' => Criteria::ASC, // 安定ソートのためにIDでのソートを追加
+                'id' => Criteria::ASC, // Add ID sorting for stable ordering.
             ])
             ->setMaxResults(1);
 
@@ -89,7 +89,7 @@ class Order
     }
 
     /**
-     * Resolver を用いて subtotal が最大のLineItemを返す
+     * Return the LineItem with the highest subtotal using the Resolver.
      */
     public function getHighestSubtotalLineItemUsingResolver(): ?LineItem
     {
@@ -101,7 +101,7 @@ class Order
     }
 
     /**
-     * 指定されたAlcoholTypeのLineItemの配列を返す
+     * Return LineItems for the specified AlcoholType.
      *
      * @return list<LineItem>
      */

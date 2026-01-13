@@ -3,7 +3,7 @@
 namespace App\Service\DataLoader\Data;
 
 /**
- * エンティティごとの一括取得対象のID
+ * Target IDs to batch-load per entity.
  */
 final class TargetIdSet
 {
